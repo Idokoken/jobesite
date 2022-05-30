@@ -1,11 +1,22 @@
-import Landing from "./contents/Landing";
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+//import Landing from "./components/";
+import {ErrorPage, Login, Register, Dashboard, Landing} from './pages/Index'
+//import styled from "styled-components";
+
 
 function App() {
+	
   return (
-    <div className="container-fluid">
-      <h2>World Jobs</h2>
-      <Landing />
-    </div>
+  
+    <Router>
+     <Routes> 
+      <Route path='/' element={<Landing />} />
+      <Route path='/dashboard' element={<Dashboard />} />
+      <Route path='/login' element={<Login />} />
+      <Route path='/register' element={<Register />} />
+      <Route path='*' element={<ErrorPage />} />
+     </Routes>
+    </Router>
   );
 }
 
