@@ -2,11 +2,13 @@ const express = require('express')
 const path = require('path')
 const mongoose = require('mongoose')
 const morgan = require('morgan')
+const chalk = require('chalk')
 const notFoundMiddleware = require('./middleware/notFound')
 const errHandlerMiddleware = require('./middleware/errHandler')
 require('dotenv').config()
 const authRouter = require('./routes/authRouter')
 const jobRouter = require('./routes/jobRouter')
+require('express-async-errors');
 //const keys = require('./src/config/key')
 
 //app setup
@@ -27,7 +29,7 @@ mongoose.connect('mongodb+srv://Ken_apps:Ken_apps@cluster0.npcrm.mongodb.net/Job
 
 const db = mongoose.connection
 db.on('error', () => console.log('error connecting to database'))
-db.once('open', () => console.log('connected to database'))
+db.once('open', () => console.log('connected to ' + chalk.cyan('wjobs database')))
 
 //routes setup
 app.get('/', () => {
@@ -42,4 +44,4 @@ app.use(notFoundMiddleware)
 app.use(errHandlerMiddleware)
 
 
-app.listen(port, () => console.log('listening on port 8000'))
+app.listen(port, () => console.log('listening on port ' + chalk.cyan(8000)))
