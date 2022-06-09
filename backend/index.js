@@ -3,12 +3,13 @@ const path = require('path')
 const mongoose = require('mongoose')
 const morgan = require('morgan')
 const chalk = require('chalk')
+//const cors = require('cors')
 const notFoundMiddleware = require('./middleware/notFound')
 const errHandlerMiddleware = require('./middleware/errHandler')
 require('dotenv').config()
 const authRouter = require('./routes/authRouter')
 const jobRouter = require('./routes/jobRouter')
-require('express-async-errors');
+//require('express-async-errors');
 //const keys = require('./src/config/key')
 
 //app setup
@@ -17,6 +18,7 @@ const port = process.env.PORT
 
 //middleware setup
 app.use(morgan('dev'))
+//app.use(cors())
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
@@ -32,8 +34,8 @@ db.on('error', () => console.log('error connecting to database'))
 db.once('open', () => console.log('connected to ' + chalk.cyan('wjobs database')))
 
 //routes setup
-app.get('/', () => {
-	throw new Error('error')
+app.get('/api', () => {
+	res.json({msg: "ken"})
 	console.log('welcome')
 }) 
 

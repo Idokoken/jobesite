@@ -1,5 +1,8 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken')
+//require('dotenv').config()
 
 const { Schema } = mongoose
 
@@ -25,7 +28,8 @@ const userSchema = new Schema({
 	password: {
 		type: String, 
 		required: [true, 'please provide password'], 
-		minLength: 6
+		minLength: 6,
+		select: false
 		},
 	lastName: {
 		type: String, 
@@ -40,5 +44,17 @@ const userSchema = new Schema({
 	 default: 'My city'
 	 },
 }, {timestamp: true})
+
+userSchema.pre('save', async function() {	
+const salt = await bcrypt.genSaltSync(10);
+this.password = await bcrypt.hashSync(this.password, salt)
+ console.log(this.password)
+});
+
+
+userSchema.methods.createJWT = function() {
+	return jwt.sign({userId: this._id}, process.env.JWT_SECRET, {expiresIn: process.env.JWT_LIFETIME})
+	
+}
 
 module.exports = mongoose.model('User', userSchema)

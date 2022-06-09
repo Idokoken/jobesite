@@ -10,8 +10,8 @@ function App() {
   
     <Router>
      <Routes> 
-      <Route path='/' element={<Landing />} />
-      <Route path='/dashboard' element={<Dashboard />} />
+      <Route path='/landing' element={<Landing />} />
+      <Route path='/' exact element={<Dashboard />} />
       <Route path='/login' element={<Login />} />
       <Route path='/register' element={<Register />} />
       <Route path='*' element={<ErrorPage />} />
