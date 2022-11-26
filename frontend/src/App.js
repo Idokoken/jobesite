@@ -1,21 +1,18 @@
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 //import Landing from "./components/";
-import {ErrorPage, Login, Register, Dashboard, Landing} from './pages/Index'
+import { ErrorPage, Login, Register, Dashboard, Landing } from "./pages/Index";
 //import styled from "styled-components";
 
-
 function App() {
-	
   return (
-  
     <Router>
-     <Routes> 
-      <Route path='/landing' element={<Landing />} />
-      <Route path='/' exact element={<Dashboard />} />
-      <Route path='/login' element={<Login />} />
-      <Route path='/register' element={<Register />} />
-      <Route path='*' element={<ErrorPage />} />
-     </Routes>
+      <Routes>
+        <Route path="/landing" element={<Landing />} />
+        <Route path="/" exact element={<Dashboard />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
     </Router>
   );
 }
