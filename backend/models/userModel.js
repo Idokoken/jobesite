@@ -1,8 +1,6 @@
-const mongoose = require("mongoose");
-const validator = require("validator");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-//require('dotenv').config()
+import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 const { Schema } = mongoose;
 
@@ -18,13 +16,8 @@ const userSchema = new Schema(
     email: {
       type: String,
       required: [true, "please provide email"],
-      /*validate: {
-			vaidator: validator.isEmail, 
-			validator: function(v) {
-        return /\d{3}-\d{3}-\d{4}/.test(v) },
-		message: 'please provide a valid email'
-		},*/
       unique: true,
+      trim: true,
     },
     password: {
       type: String,
@@ -45,7 +38,7 @@ const userSchema = new Schema(
       default: "My city",
     },
   },
-  { timestamp: true }
+  { timestamps: true }
 );
 
 userSchema.pre("save", async function () {
@@ -60,4 +53,9 @@ userSchema.methods.createJWT = function () {
   });
 };
 
-module.exports = mongoose.model("User", userSchema);
+userSchema.methods.comparePassword = async function (userPassword) {
+  const isMatch = await bcrypt.compare(userPassword, this.password);
+  return isMatch;
+};
+
+export default mongoose.model("User", userSchema);

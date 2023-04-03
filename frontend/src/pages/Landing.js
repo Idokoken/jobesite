@@ -2,65 +2,74 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { tablet } from "../Responsive";
-const Landing = () => {
-  const Wrapper = styled.main`
-    margin: 0;
-    padding: 0;
-    width: 100%;
 
-    .login {
-      background: #528;
-      color: white;
-      margin: 10px;
-      margin-left: 0;
-    }
-    .hero {
-      width: 100%;
-      text-align: center;
-      margin-top: 20px;
-    }
-  `;
-  const Nav = styled.nav`
-    width: 100%;
+const Wrapper = styled.main`
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgb(198, 208, 206);
+  font-family: "Poppins", sans-serif;
+
+  nav {
     display: flex;
     align-items: center;
-    background-color: white;
-    color: #673480;
-    height: 60px;
+    height: 50px;
+  }
 
-    img {
-      border-radius: 10px;
-      margin: 0 20px;
-    }
-    h1 {
-      color: #528;
-    }
-  `;
-  const Container = styled.div`
-    background: #dce4e2;
-    margin: 0;
-    padding: 10px;
+  nav img {
+    border-radius: 5px;
+    margin: 0 20px;
+  }
+  h1 {
+    color: rgba(211, 15, 69, 1);
+    font-family: "Rampart One", cursive;
+  }
+
+  .hero {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+  }
+  .page {
+    /* background: #dce4e2; */
     min-height: calc(100vh - 60px);
     width: 100vw;
-    ${tablet({ display: "flex" })}
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    ${tablet({ flexDirection: "row", alignItems: "flex-start" })}
+  }
 
-    div {
-      width: 100%;
-    }
-    img {
-      height: 80%;
-      object-fit: contain;
-      width: 90%;
-    }
-  `;
+  .page div {
+    flex: 100%;
+    ${tablet({ flex: "50%" })}
+  }
+  .hero {
+    height: 70%;
+    width: 100%;
+  }
+  img.main-img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    border-radius: ;
+  }
+  .login {
+    background: rgba(211, 15, 69, 1);
+    color: white;
+    margin-top: 10px;
+  }
+`;
 
+const Landing = () => {
   return (
-    <Wrapper>
-      <Nav className="text-info">
-        <img src="/images/logo.png" alt="brand" height="30" width="30" />
+    <Wrapper className="pt-3">
+      <nav className="ps-4">
+        <img src="/images/logo.png" alt="brand" height="40" width="40" />
         <h1>World jobs</h1>
-      </Nav>
-      <Container className="page">
+      </nav>
+      <div className="page pt-4 px-4">
         <div className="info mx-3">
           <h2>Job Tracking App</h2>
           <p className="">
@@ -79,7 +88,7 @@ const Landing = () => {
         <div className="hero">
           <img src="/images/main.jpg" alt="job hunt" className="main-img" />
         </div>
-      </Container>
+      </div>
     </Wrapper>
   );
 };

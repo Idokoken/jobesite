@@ -1,11 +1,12 @@
 {
-  "name": "jobsite",
+  "name": "wjobs",
   "version": "1.0.0",
   "description": "a website to help people find job",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "index.js",
+    "test": "mocha",
+    "lint": "eslint",
     "dev": "nodemon index.js",
     "start": "node index.js",
     "client": "npm start --prefex client"
@@ -32,6 +33,9 @@
     "validator": "^13.7.0"
   },
   "devDependencies": {
+    "chai": "^4.3.7",
+    "eslint": "^8.37.0",
+    "mocha": "^10.2.0",
     "nodemon": "^2.0.15"
   }
 }

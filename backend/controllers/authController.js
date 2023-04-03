@@ -1,7 +1,8 @@
-const User = require("../models/userModel");
-const { StatusCodes } = require("http-status-codes");
+import User from "../models/userModel.js";
+import { StatusCodes } from "http-status-codes";
 
-exports.register = async (req, res, next) => {
+// register user
+const register = async (req, res, next) => {
   const { name, email, password, lastName, location } = req.body;
 
   if (!name || !email || !password) {
@@ -11,22 +12,21 @@ exports.register = async (req, res, next) => {
   if (existingUser) {
     res.status(400).json({ err: "email already in use" });
   }
+
   const newUser = new User({ name, email, password, lastName, location });
 
   try {
     const user = await newUser.save();
     const token = user.createJWT();
-    res
-      .status(200)
-      .json({
-        user: {
-          name: user.name,
-          email: user.email,
-          lastName: user.lastName,
-          location: user.location,
-        },
-        token,
-      });
+    res.status(200).json({
+      user: {
+        name: user.name,
+        email: user.email,
+        lastName: user.lastName,
+        location: user.location,
+      },
+      token,
+    });
     //res.status(StatusCodes.Ok).json(user)
   } catch (err) {
     //res.status(500).json({msg: 'error registering'})
@@ -34,15 +34,56 @@ exports.register = async (req, res, next) => {
   }
 };
 
-exports.login = async (req, res) => {
+// login user
+const login = async (req, res) => {
   const { email, password } = req.body;
   try {
-    let user = await User.findOne({ email });
-    user && res.status(200).json(user);
+    if (!email || !password) {
+      res.status(401).json({ msg: "please provide all fields" });
+    }
+
+    let user = await User.findOne({ email }).select("+password");
+    //console.log(user)
+    if (!user) {
+      res.status(401).json({ msg: "Invalid Credentials" });
+    }
+    const checkPassword = await user.comparePassword(password);
+    if (!checkPassword) {
+      res.status(401).json({ msg: "Invalid Credentials" });
+    }
+
+    user.password = undefined;
+    const token = user.createJWT();
+    res.status(200).json({ user, token, location: user.location });
   } catch (err) {
-    res.status(500).json({ msg: "error logining" });
+    res.status(500).json({ msg: "error logining user" });
   }
 };
-exports.updateUser = (req, res) => {
-  res.send("updateUser");
+
+// update user
+const updateUser = async (req, res) => {
+  const { name, email, password, lastName, location } = req.body;
+  try {
+    const user = await User.findByIdAndUpdate(
+      req.params.id,
+      { name, email, password, lastName, location },
+      { new: true }
+    );
+    res.status(200).json(user);
+    res.send("updateUser");
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
+
+// delete user
+const deleteUser = async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.params.id);
+    res.status(200).json({ msg: "user deleted successfully" });
+  } catch (error) {
+    res.status(500).json(err);
+  }
+};
+
+export { register, login, updateUser, deleteUser };

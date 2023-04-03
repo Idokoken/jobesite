@@ -1,7 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-//import Landing from "./components/";
 import { ErrorPage, Login, Register, Dashboard, Landing } from "./pages/Index";
-//import styled from "styled-components";
 
 function App() {
   return (

@@ -1,18 +1,17 @@
+const createJob = (req, res) => {
+  res.send("create");
+};
+const updateJob = (req, res) => {
+  res.send("update job");
+};
+const deleteJob = (req, res) => {
+  res.send("delete job");
+};
+const getAllJob = (req, res) => {
+  res.send("get all job");
+};
+const getStat = (req, res) => {
+  res.send("get job stat");
+};
 
-	exports.createJob = (req, res) => {
-	 res.send('create')
-}
-exports.updateJob = (req, res) => {
-	res.send('update job')
-}
- exports.deleteJob = (req, res) => {
- res.send('delete job')
-}
-exports.getAllJob = (req, res) => {
- res.send('get all job')
-}
-exports.getStat = (req, res) => {
-	res.send('get job stat')
-}
-
-//module.exports = {createJob, updateJob, deleteJob, getAllJob, getStat}
+export { createJob, updateJob, deleteJob, getAllJob, getStat };
