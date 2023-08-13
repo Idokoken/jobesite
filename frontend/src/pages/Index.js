@@ -1,7 +1,8 @@
-import ErrorPage from './Error'
-import Login from './Login'
-import Register from './Register'
-import Dashboard from './Dashboard'
-import Landing from './Landing'
+import ErrorPage from "./Error";
+import Login from "./Login";
+import Register from "./Register";
+import Landing from "./Landing";
+import ProtectedRoute from "./ProtectedRoute";
+import Profile from "./Profile";
 
-export {ErrorPage, Login, Register, Dashboard, Landing}
+export { ErrorPage, Login, Register, Landing, ProtectedRoute, Profile };

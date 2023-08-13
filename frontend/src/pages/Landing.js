@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { tablet } from "../Responsive";
+import { useAppContext } from "../context/AppContext";
 
 const Wrapper = styled.main`
   margin: 0;
@@ -53,7 +54,7 @@ const Wrapper = styled.main`
     height: 100%;
     width: 100%;
     object-fit: contain;
-    border-radius: ;
+    border-radius: 10px;
   }
   .login {
     background: rgba(211, 15, 69, 1);
@@ -63,6 +64,13 @@ const Wrapper = styled.main`
 `;
 
 const Landing = () => {
+  const navigate = useNavigate();
+  const { user } = useAppContext();
+  useEffect(() => {
+    if (user) {
+      navigate(-1);
+    }
+  }, [user, navigate]);
   return (
     <Wrapper className="pt-3">
       <nav className="ps-4">

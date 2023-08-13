@@ -1,31 +1,43 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
-const jobSchema = new Schema({
-  company: {
-    type: String,
-    required: [true, "please provide your company name"],
+const jobSchema = new Schema(
+  {
+    company: {
+      type: String,
+      required: [true, "please provide your company name"],
+    },
+    position: {
+      type: String,
+      required: [true, "please provide job title"],
+    },
+    status: {
+      type: String,
+      enum: ["Interview", "declined", "pending"],
+      default: "pending",
+    },
+    jobType: {
+      type: String,
+      enum: ["Full-Time", "Part-Time", "Contract", "Intenship"],
+      default: "Full-Time",
+    },
+    jobLocation: {
+      type: String,
+      default: "my city",
+    },
+    jobSituation: {
+      type: String,
+      enum: ["Onsite", "Hybrid", "Remote"],
+      default: "Onsite",
+    },
+    createdBy: {
+      type: mongoose.Types.ObjectId,
+      ref: "User",
+      required: [true, "please provide user"],
+    },
   },
-  position: {
-    type: String,
-    required: [true, "please provide job title"],
-  },
-  status: {
-    type: String,
-  },
-  jobType: {
-    type: String,
-    required: [true, "please provide job type"],
-  },
-  jobLocation: {
-    type: String,
-    required: [true, "please provide job location"],
-  },
-  createdBy: {
-    type: mongoose.ObjectId,
-    ref: "User",
-  },
-});
+  { timestamps: true }
+);
 
-modeule.exports = mongoose.model("Job", jobSchema);
+export default mongoose.model("Job", jobSchema);

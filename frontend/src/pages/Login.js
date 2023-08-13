@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { tablet } from "../Responsive";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Alert } from "../components/Index";
 import { useAppContext } from "../context/AppContext";
 
@@ -85,6 +85,7 @@ const Wrapper = styled.div`
 `;
 
 const Login = () => {
+  const navigate = useNavigate();
   const initialValues = {
     name: "",
     email: "",
@@ -93,8 +94,7 @@ const Login = () => {
     showAlert: false,
   };
   const [values, setValues] = useState(initialValues);
-  const { user, isLoading, showAlert, displayAlert, loginUser } =
-    useAppContext();
+  const { user, showAlert, displayAlert, loginUser } = useAppContext();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
@@ -112,6 +112,12 @@ const Login = () => {
 
     loginUser(currentUser);
   };
+
+  useEffect(() => {
+    if (user) {
+      navigate(-1);
+    }
+  }, [user, navigate]);
 
   return (
     <Wrapper>

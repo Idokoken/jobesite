@@ -10,7 +10,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 import authRouter from "./routes/authRouter.js";
 import jobRouter from "./routes/jobRouter.js";
-import "express-async-errors";
+import authenticatedUser from "./middleware/auth.js";
 
 //app setup
 const app = express();
@@ -42,7 +42,7 @@ app.get("/api/v1", (req, res) => {
 });
 
 app.use("/api/v1/auth", authRouter);
-app.use("/api/v1/job", jobRouter);
+app.use("/api/v1/job", authenticatedUser, jobRouter);
 
 app.use(notFoundMiddleware);
 app.use(errHandlerMiddleware);

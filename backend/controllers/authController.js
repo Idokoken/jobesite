@@ -1,5 +1,5 @@
 import User from "../models/userModel.js";
-import { StatusCodes } from "http-status-codes";
+// import { StatusCodes } from "http-status-codes";
 
 // register user
 const register = async (req, res, next) => {
@@ -62,18 +62,22 @@ const login = async (req, res) => {
 
 // update user
 const updateUser = async (req, res) => {
-  const { name, email, password, lastName, location } = req.body;
-  try {
-    const user = await User.findByIdAndUpdate(
-      req.params.id,
-      { name, email, password, lastName, location },
-      { new: true }
-    );
-    res.status(200).json(user);
-    res.send("updateUser");
-  } catch (err) {
-    res.status(500).json(err);
-  }
+  // const { name, email, lastName, location } = req.body;
+  // if (!name || !email || !lastName || !location) {
+  //   res.status(400).json({ msg: "Please provide all values" });
+  // }
+  // const user = await User.findOne({ _id: req.user.userId });
+  // user.name = name;
+  // user.email = email;
+  // user.lastName = lastName;
+  // user.location = location;
+
+  // await user.save();
+
+  // const token = user.createJWT();
+  // res.status(200).json({ user, token, location: user.location });
+  res.json("hello update front");
+  console.log("hello update");
 };
 
 // delete user
