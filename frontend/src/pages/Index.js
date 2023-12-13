@@ -4,5 +4,6 @@ import Register from "./Register";
 import Landing from "./Landing";
 import ProtectedRoute from "./ProtectedRoute";
 import Profile from "./Profile";
+import Home from "./Home";
 
-export { ErrorPage, Login, Register, Landing, ProtectedRoute, Profile };
+export { Home, ErrorPage, Login, Register, Landing, ProtectedRoute, Profile };

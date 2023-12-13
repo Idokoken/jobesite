@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
-import { Navbar, NavLinks } from "../../components/Index";
+import { Header, NavLinks } from "../../components/Index";
 
 const Wrapper = styled.div`
   margin: 0;
@@ -10,7 +10,7 @@ function SharedLayout() {
   return (
     <Wrapper>
       <main className="dashboard">
-        <Navbar />
+        <Header />
         <div>
           <NavLinks />
           <div className="dashboard-page">

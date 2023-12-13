@@ -1,5 +1,5 @@
 import Alert from "./Alert";
-import Navbar from "./Navbar";
+import Header from "./Header";
 import NavLinks from "./NavLinks";
 
-export { Alert, Navbar, NavLinks };
+export { Alert, Header, NavLinks };

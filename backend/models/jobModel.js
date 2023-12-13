@@ -24,13 +24,13 @@ const jobSchema = new Schema(
     },
     jobLocation: {
       type: String,
-      default: "my city",
     },
     jobSituation: {
       type: String,
       enum: ["Onsite", "Hybrid", "Remote"],
       default: "Onsite",
     },
+    jobDescription: { type: String },
     createdBy: {
       type: mongoose.Types.ObjectId,
       ref: "User",
